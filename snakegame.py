@@ -1,5 +1,4 @@
 import pygame
-import math
 import random
 import tkinter as tk
 from tkinter import messagebox
@@ -7,16 +6,15 @@ from Cube import Cube
 from Snake import Snake
 
 
-def drawGrid(w, rows, surface):
-    sizeBtwn = w // rows
-    x = 0
-    y = 0
-    for l in range(rows):
+def drawGrid(width, rows, surface):
+    sizeBtwn = width // rows
+    x, y = 0, 0
+    for _ in range(rows):
         x += sizeBtwn
         y += sizeBtwn
 
-        pygame.draw.line(surface, (255, 255, 255), (x, 0), (x, w))
-        pygame.draw.line(surface, (255, 255, 255), (0, y), (w, y))
+        pygame.draw.line(surface, (255, 255, 255), (x, 0), (x, width))
+        pygame.draw.line(surface, (255, 255, 255), (0, y), (width, y))
 
 
 def redrawWindow(surface):
@@ -35,7 +33,7 @@ def randomSnack(rows, item):
         x = random.randrange(rows)
         y = random.randrange(rows)
         # prevent snack appearing on the snake
-        if len(list(filter(lambda z: z.pos == (x, y), positions))) > 0:
+        if len(list(filter(lambda z: z.position == (x, y), positions))) > 0:
             continue
         else:
             break
@@ -56,25 +54,24 @@ def message_box(subject, content):
 
 def main():
     global width, rows, snake, snack
-    width = 500
-    rows = 20
+    width = Cube.width
+    rows = Cube.rows
     win = pygame.display.set_mode((width, width))
     snake = Snake((255, 0, 0), (10, 10))
     snack = Cube(randomSnack(rows, snake), color=(0, 255, 0))
 
-    flag = True
     clock = pygame.time.Clock()
 
-    while flag:
+    while True:
         pygame.time.delay(50)
         clock.tick(10)
         snake.move()
-        if snake.body[0].pos == snack.pos:
+        if snake.body[0].position == snack.position:
             snake.addCube()
             snack = Cube(randomSnack(rows, snake), color=(0, 255, 0))
 
         for x in range(len(snake.body)):
-            if snake.body[x].pos in list(map(lambda z: z.pos, snake.body[x+1:])):
+            if snake.body[x].position in list(map(lambda z: z.position, snake.body[x+1:])):
                 message_box(
                     'You Lost!', 'Score: {}. Play again!'.format(len(snake.body)))
                 snake.reset((10, 10))

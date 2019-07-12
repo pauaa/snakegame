@@ -17,31 +17,32 @@ class Snake(object):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
+                exit()
 
             keys = pygame.key.get_pressed()
             for key in keys:
                 if keys[pygame.K_LEFT]:
                     self.dirnx = -1
                     self.dirny = 0
-                    self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
+                    self.turns[self.head.position[:]] = [self.dirnx, self.dirny]
 
                 elif keys[pygame.K_RIGHT]:
                     self.dirnx = 1
                     self.dirny = 0
-                    self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
+                    self.turns[self.head.position[:]] = [self.dirnx, self.dirny]
 
                 elif keys[pygame.K_UP]:
                     self.dirnx = 0
                     self.dirny = -1
-                    self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
+                    self.turns[self.head.position[:]] = [self.dirnx, self.dirny]
 
                 elif keys[pygame.K_DOWN]:
                     self.dirnx = 0
                     self.dirny = 1
-                    self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
+                    self.turns[self.head.position[:]] = [self.dirnx, self.dirny]
 
         for i, cube in enumerate(self.body):
-            position = cube.pos[:]
+            position = cube.position[:]
             if position in self.turns:
                 turn = self.turns[position]
                 cube.move(turn[0], turn[1])
@@ -49,17 +50,17 @@ class Snake(object):
                     self.turns.pop(position)
             else:  # hitting the edges of the screen, move to the opposite side of the screem
                 # moving left
-                if cube.dirnx == -1 and cube.pos[0] <= 0:
-                    cube.pos = (cube.rows-1, cube.pos[1])
+                if cube.dirnx == -1 and cube.position[0] <= 0:
+                    cube.position = (cube.rows-1, cube.position[1])
                 # moving right
-                elif cube.dirnx == 1 and cube.pos[0] >= cube.rows-1:
-                    cube.pos = (0, cube.pos[1])
+                elif cube.dirnx == 1 and cube.position[0] >= cube.rows-1:
+                    cube.position = (0, cube.position[1])
                 # moving down
-                elif cube.dirny == 1 and cube.pos[1] >= cube.rows-1:
-                    cube.pos = (cube.pos[0], 0)
+                elif cube.dirny == 1 and cube.position[1] >= cube.rows-1:
+                    cube.position = (cube.position[0], 0)
                 # moving up
-                elif cube.dirny == -1 and cube.pos[1] <= 0:
-                    cube.pos = (cube.pos[0], cube.rows-1)
+                elif cube.dirny == -1 and cube.position[1] <= 0:
+                    cube.position = (cube.position[0], cube.rows-1)
                 else:
                     cube.move(cube.dirnx, cube.dirny)  # keep moving
 
@@ -76,13 +77,13 @@ class Snake(object):
         dx, dy = tail.dirnx, tail.dirny
 
         if dx == 1 and dy == 0:  # right
-            newTail = Cube((tail.pos[0]-1, tail.pos[1]))
+            newTail = Cube((tail.position[0]-1, tail.position[1]))
         elif dx == -1 and dy == 0:  # left
-            newTail = Cube((tail.pos[0]+1, tail.pos[1]))
+            newTail = Cube((tail.position[0]+1, tail.position[1]))
         elif dx == 0 and dy == 1:  # down
-            newTail = Cube((tail.pos[0], tail.pos[1]-1))
+            newTail = Cube((tail.position[0], tail.position[1]-1))
         elif dx == 0 and dy == -1:  # up
-            newTail = Cube((tail.pos[0], tail.pos[1]+1))
+            newTail = Cube((tail.position[0], tail.position[1]+1))
 
         newTail.dirnx = dx
         newTail.dirny = dy
