@@ -100,7 +100,21 @@ class Snake(object):
         pass
 
     def addCube(self):
-        pass
+        tail = self.body[-1]
+        dx, dy = tail.dirnx, tail.dirny
+
+        if dx == 1 and dy == 0:  # right
+            newTail = Cube((tail.pos[0]-1, tail.pos[1]))
+        elif dx == -1 and dy == 0:  # left
+            newTail = Cube((tail.pos[0]+1, tail.pos[1]))
+        elif dx == 0 and dy == 1:  # down
+            newTail = Cube((tail.pos[0], tail.pos[1]-1))
+        elif dx == 0 and dy == -1:  # up
+            newTail = Cube((tail.pos[0], tail.pos[1]+1))
+
+        newTail.dirnx = dx
+        newTail.dirny = dy
+        self.body.append(newTail)
 
     def draw(self, surface):
         for i, c in enumerate(self.body):
