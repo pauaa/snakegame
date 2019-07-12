@@ -5,7 +5,7 @@ class Cube(object):
     rows = 20
     width = 500
 
-    def __init__(self, start, dirnx=1, dirny=0, color=(231, 59, 43)):
+    def __init__(self, start, color, dirnx=1, dirny=0):
         self.position = start
         self.dirnx = 1
         self.dirny = 0
@@ -14,7 +14,8 @@ class Cube(object):
     def move(self, dirnx, dirny):
         self.dirnx = dirnx
         self.dirny = dirny
-        self.position = (self.position[0] + self.dirnx, self.position[1] + self.dirny)
+        self.position = (
+            self.position[0] + self.dirnx, self.position[1] + self.dirny)
 
     def draw(self, surface, eyes=False):
         dis = self.width // self.rows

@@ -5,6 +5,10 @@ from tkinter import messagebox
 from Cube import Cube
 from Snake import Snake
 
+SNACK_COLOR = (17, 133, 120)
+SNAKE_COlOR = (231, 59, 43)
+LINE_COLOR = (102, 102, 102)
+
 
 def drawGrid(width, rows, surface):
     sizeBtwn = width // rows
@@ -13,8 +17,8 @@ def drawGrid(width, rows, surface):
         x += sizeBtwn
         y += sizeBtwn
 
-        pygame.draw.line(surface, (255, 255, 255), (x, 0), (x, width))
-        pygame.draw.line(surface, (255, 255, 255), (0, y), (width, y))
+        pygame.draw.line(surface, LINE_COLOR, (x, 0), (x, width))
+        pygame.draw.line(surface, LINE_COLOR, (0, y), (width, y))
 
 
 def redrawWindow(surface):
@@ -57,8 +61,8 @@ def main():
     width = Cube.width
     rows = Cube.rows
     win = pygame.display.set_mode((width, width))
-    snake = Snake((255, 0, 0), (10, 10))
-    snack = Cube(randomSnack(rows, snake), color=(0, 255, 0))
+    snake = Snake(SNAKE_COlOR, (10, 10))
+    snack = Cube(randomSnack(rows, snake), color=SNACK_COLOR)
 
     clock = pygame.time.Clock()
 
@@ -68,7 +72,7 @@ def main():
         snake.move()
         if snake.body[0].position == snack.position:
             snake.addCube()
-            snack = Cube(randomSnack(rows, snake), color=(0, 255, 0))
+            snack = Cube(randomSnack(rows, snake), color=SNACK_COLOR)
 
         for x in range(len(snake.body)):
             if snake.body[x].position in list(map(lambda z: z.position, snake.body[x+1:])):

@@ -8,7 +8,7 @@ class Snake(object):
 
     def __init__(self, color, pos):
         self.color = color
-        self.head = Cube(pos)
+        self.head = Cube(pos, color)
         self.body.append(self.head)
         self.dirnx = 0
         self.dirny = 1
@@ -24,22 +24,26 @@ class Snake(object):
                 if keys[pygame.K_LEFT]:
                     self.dirnx = -1
                     self.dirny = 0
-                    self.turns[self.head.position[:]] = [self.dirnx, self.dirny]
+                    self.turns[self.head.position[:]] = [
+                        self.dirnx, self.dirny]
 
                 elif keys[pygame.K_RIGHT]:
                     self.dirnx = 1
                     self.dirny = 0
-                    self.turns[self.head.position[:]] = [self.dirnx, self.dirny]
+                    self.turns[self.head.position[:]] = [
+                        self.dirnx, self.dirny]
 
                 elif keys[pygame.K_UP]:
                     self.dirnx = 0
                     self.dirny = -1
-                    self.turns[self.head.position[:]] = [self.dirnx, self.dirny]
+                    self.turns[self.head.position[:]] = [
+                        self.dirnx, self.dirny]
 
                 elif keys[pygame.K_DOWN]:
                     self.dirnx = 0
                     self.dirny = 1
-                    self.turns[self.head.position[:]] = [self.dirnx, self.dirny]
+                    self.turns[self.head.position[:]] = [
+                        self.dirnx, self.dirny]
 
         for i, cube in enumerate(self.body):
             position = cube.position[:]
@@ -65,7 +69,7 @@ class Snake(object):
                     cube.move(cube.dirnx, cube.dirny)  # keep moving
 
     def reset(self, pos):
-        self.head = Cube(pos)
+        self.head = Cube(pos, self.color)
         self.body = []
         self.body.append(self.head)
         self.turns = {}
@@ -77,13 +81,13 @@ class Snake(object):
         dx, dy = tail.dirnx, tail.dirny
 
         if dx == 1 and dy == 0:  # right
-            newTail = Cube((tail.position[0]-1, tail.position[1]))
+            newTail = Cube((tail.position[0]-1, tail.position[1]), self.color)
         elif dx == -1 and dy == 0:  # left
-            newTail = Cube((tail.position[0]+1, tail.position[1]))
+            newTail = Cube((tail.position[0]+1, tail.position[1]), self.color)
         elif dx == 0 and dy == 1:  # down
-            newTail = Cube((tail.position[0], tail.position[1]-1))
+            newTail = Cube((tail.position[0], tail.position[1]-1), self.color)
         elif dx == 0 and dy == -1:  # up
-            newTail = Cube((tail.position[0], tail.position[1]+1))
+            newTail = Cube((tail.position[0], tail.position[1]+1), self.color)
 
         newTail.dirnx = dx
         newTail.dirny = dy
