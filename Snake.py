@@ -22,24 +22,32 @@ class Snake(object):
             keys = pygame.key.get_pressed()
             for key in keys:
                 if keys[pygame.K_LEFT]:
+                    if self.dirnx == 1 and self.dirny == 0:
+                        continue
                     self.dirnx = -1
                     self.dirny = 0
                     self.turns[self.head.position[:]] = [
                         self.dirnx, self.dirny]
 
                 elif keys[pygame.K_RIGHT]:
+                    if self.dirnx == -1 and self.dirny == 0:
+                        continue
                     self.dirnx = 1
                     self.dirny = 0
                     self.turns[self.head.position[:]] = [
                         self.dirnx, self.dirny]
 
                 elif keys[pygame.K_UP]:
+                    if self.dirnx == 0 and self.dirny == 1:
+                        continue
                     self.dirnx = 0
                     self.dirny = -1
                     self.turns[self.head.position[:]] = [
                         self.dirnx, self.dirny]
 
                 elif keys[pygame.K_DOWN]:
+                    if self.dirnx == 0 and self.dirny == -1:
+                        continue
                     self.dirnx = 0
                     self.dirny = 1
                     self.turns[self.head.position[:]] = [
