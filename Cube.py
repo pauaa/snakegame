@@ -32,13 +32,13 @@ class Cube(object):
             pygame.draw.circle(surface, (0, 0, 0), circleMiddle2, radius)
 
     def moving_left(self):
-        return self.dirnx == -1
+        return self.dirnx == -1 and self.dirny == 0
 
     def moving_right(self):
-        return self.dirnx == 1
+        return self.dirnx == 1 and self.dirny == 0
 
     def moving_down(self):
-        return self.dirny == 1
+        return self.dirny == 1 and self.dirnx == 0
 
     def moving_up(self):
-        return self.dirny == -1
+        return self.dirny == -1 and self.dirnx == 0

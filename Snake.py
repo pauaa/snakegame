@@ -82,19 +82,18 @@ class Snake(object):
 
     def addCube(self):
         tail = self.body[-1]
-        dx, dy = tail.dirnx, tail.dirny
 
-        if dx == 1 and dy == 0:  # right
+        if tail.moving_right():
             newTail = Cube((tail.position[0]-1, tail.position[1]), self.color)
-        elif dx == -1 and dy == 0:  # left
+        elif tail.moving_left():
             newTail = Cube((tail.position[0]+1, tail.position[1]), self.color)
-        elif dx == 0 and dy == 1:  # down
+        elif tail.moving_down():
             newTail = Cube((tail.position[0], tail.position[1]-1), self.color)
-        elif dx == 0 and dy == -1:  # up
+        elif tail.moving_up():
             newTail = Cube((tail.position[0], tail.position[1]+1), self.color)
 
-        newTail.dirnx = dx
-        newTail.dirny = dy
+        newTail.dirnx = tail.dirnx
+        newTail.dirny = tail.dirny
         self.body.append(newTail)
 
     def draw(self, surface):
