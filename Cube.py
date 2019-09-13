@@ -30,3 +30,15 @@ class Cube(object):
             circleMiddle2 = (i*dis+dis-radius*3, j*dis+8)
             pygame.draw.circle(surface, (0, 0, 0), circleMiddle, radius)
             pygame.draw.circle(surface, (0, 0, 0), circleMiddle2, radius)
+
+    def moving_left(self):
+        return self.dirnx == -1
+
+    def moving_right(self):
+        return self.dirnx == 1
+
+    def moving_down(self):
+        return self.dirny == 1
+
+    def moving_up(self):
+        return self.dirny == -1

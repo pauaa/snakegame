@@ -61,17 +61,13 @@ class Snake(object):
                 if i == len(self.body)-1:  # last qube
                     self.turns.pop(position)
             else:  # hitting the edges of the screen, move to the opposite side of the screem
-                # moving left
-                if cube.dirnx == -1 and cube.position[0] <= 0:
+                if cube.moving_left() and cube.position[0] <= 0:
                     cube.position = (cube.rows-1, cube.position[1])
-                # moving right
-                elif cube.dirnx == 1 and cube.position[0] >= cube.rows-1:
+                elif cube.moving_right() and cube.position[0] >= cube.rows-1:
                     cube.position = (0, cube.position[1])
-                # moving down
-                elif cube.dirny == 1 and cube.position[1] >= cube.rows-1:
+                elif cube.moving_down() and cube.position[1] >= cube.rows-1:
                     cube.position = (cube.position[0], 0)
-                # moving up
-                elif cube.dirny == -1 and cube.position[1] <= 0:
+                elif cube.moving_up() and cube.position[1] <= 0:
                     cube.position = (cube.position[0], cube.rows-1)
                 else:
                     cube.move(cube.dirnx, cube.dirny)  # keep moving
